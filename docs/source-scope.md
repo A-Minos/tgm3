@@ -8,6 +8,10 @@ content whose redistribution rights have not been established.
 - Root probe, JNI page model, synthetic tests, PE/ELF inspection tools, Gradle
   files and documentation: written for this project. No game instructions or
   binary fixtures are embedded. Test PE/ELF inputs are synthesized at runtime.
+- `tools/bgm_ogg/`: original Python preparation/validation tools and synthetic
+  tests. FFmpeg is invoked as a separately installed program; no FFmpeg, Vorbis,
+  game decoder/runtime implementation or actual audio is included. The sidecar
+  format requires a compatible loader that is not supplied by this repository.
 - `android-shell/app/src/main/java/org/aminos/tgm3/privateport/`: project-specific
   Java importer, launcher and touch UI. The supported executable hash and size
   are validation metadata, not executable content. Import requires an external

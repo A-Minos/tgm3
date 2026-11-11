@@ -58,11 +58,13 @@ public final class LauncherActivity extends Activity {
   title.setText("TGM3 · Private Android Test"); title.setTextSize(25);
   layout.addView(title);
   TextView help = new TextView(this);
-  help.setText("Import the game ZIP you supplied for this private test. Only its supported game.exe (557056 bytes, SHA-256 0d10e863…cb2) and data/ are accepted; other TGM3 builds may not work. Existing saves are kept. No game assets are bundled. Prototype touch keys, keyboard, and controller input are available.");
+  help.setText("Import the game ZIP you supplied for this private test. Only its supported game.exe (557056 bytes, SHA-256 0d10e863…cb2) and data/ are accepted; other TGM3 builds may not work. Existing saves are kept. No game assets are bundled. Configurable translucent touch controls, keyboard, and controller input are available.");
   layout.addView(help);
   status = new TextView(this); layout.addView(status);
   choose = new Button(this); choose.setText("Import game ZIP"); layout.addView(choose);
   start = new Button(this); start.setText("Start game"); layout.addView(start);
+  Button touch = new Button(this); touch.setText("Touch layout settings"); layout.addView(touch);
+  touch.setOnClickListener(v -> startActivity(new Intent(this, TouchSettingsActivity.class)));
   choose.setOnClickListener(v -> {
    if (ImportJob.busy) return;
    Intent pick = new Intent(Intent.ACTION_OPEN_DOCUMENT);

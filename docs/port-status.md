@@ -7,6 +7,9 @@ at runtime; this is not on-device dynamic recompilation or a full Windows VM.
 
 ## Verified privately, not reproducible from this export alone
 
+These bullets describe the earlier pre-v2 baseline, not the final touch-v2
+candidate documented below.
+
 - Host desktop OpenGL and GLES2/GL4ES paths reached gameplay and frame 3000.
 - The same final Android build ran scripted gameplay to level 3 through 3000
   frames on an API 30 x86_64 TCG emulator with SwiftShader and dummy audio.
@@ -42,3 +45,47 @@ the omitted native libraries with misleading stubs.
 Before a full reproducible game release, resolve rights for the upstream-derived
 runtime and game-derived output, then publish an authorized build path and
 complete physical-device validation. No such release is claimed here.
+
+## Touch frontend v2 validation scope
+
+These are private integrated-build observations, not a playable build reproduced
+from this source-only repository. The tests used an API 30 x86_64 TCG/SwiftShader
+emulator, not a physical phone.
+
+### Before the shared immersive-window correction (APK `caff2871…`)
+
+- Editor dragging, size/opacity changes, handed presets and reset were exercised.
+- Back opened the exit dialog; Cancel retained the game process.
+- Menu confirmation sent SDL_QUIT/window closed, ended the game process, and
+  retained the launcher process.
+
+### Final shared-window candidate (APK `5345ade9…`)
+
+- Upgrade preserved the hashes of 2,004 existing test save files; all 226 device
+  resource hashes matched. These files and resources are not published here.
+- The saved P2 editor layout reopened successfully.
+- The game SDLSurface and touch overlay both measured 640 by 480 pixels, with a
+  zero-height status bar in this emulator configuration.
+- Injected P2 left/right presses and releases reached Java and native input.
+  ACTION_CANCEL and Home/focus loss released the held direction; return to
+  gameplay after Home was not verified. Native launch/render is not evidence of
+  a started P2 game or successful rotation.
+- Simultaneous direction plus rotation was **not verified**. The attempted
+  multi-pointer test only observed the first pointer's action. The cause remains
+  unresolved; it was not established as an application or injection-helper bug.
+- Final-build Back retest, Home/resume, P1 gameplay, a 16:9 viewport screenshot
+  and clean-install checks were not completed. Do not carry forward the preceding build's passes as final-
+  candidate runtime passes.
+
+The emulator developed system_server/Scudo and network-stack failures. After
+one cold restart, Android system services still failed while the game was not
+running, blocking the remaining checks. This explains the test interruption;
+it does not establish the cause of the multi-pointer result.
+
+Save checks covered existing test-save retention through the observed update,
+resource-rebuild and relaunch paths, plus the earlier normal-exit checks. They
+are not evidence that new records, accounts, every game mode or long-term save
+behavior work. Emulator layout checks do not establish comfortable controls or
+responsiveness on a physical phone. Android 13+ predictive Back, real ARM64
+execution, audible audio, real 16 KiB kernels and broader lifecycle/controller
+behavior remain unverified.

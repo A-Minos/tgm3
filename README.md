@@ -2,13 +2,15 @@
 
 这里同步本次移植中能够单独公开的原创实验、Android 前端和测试。
 **这不是可玩测试 APK 的完整源码，不能仅用这个仓库重建该 APK。**
+**触控 v2 仅完成部分运行验证：双指组合尚未验证通过，最终沉浸版的 Back 复测也未完成。请先阅读[运行验证状态](docs/port-status.md#touch-frontend-v2-validation-scope)。**
 
 ## 目录与可运行范围
 
 - 仓库根目录：可独立构建的 **Port Lab** 诊断 APK。显示合成 GLES2 三角形，运行 JNI 内存测试，不含游戏，也不读取游戏文件。
 - `native/`、`include/`、`tests/`：原创 4 KiB 客体页/宿主页分组原型及合成测试。
 - `tools/`：只读 PE32 本地文件结构检查和 ELF 对齐检查。
-- `android-shell/`：原创 ZIP 导入器、启动界面、触屏按键界面，以及带 zlib 许可的 SDL 2.32.4 Java 接口。**游戏原生库不在仓库中。**
+- [`tools/bgm_ogg/`](tools/bgm_ogg/README.md)：原创实验性 BGM OGG/元数据侧车转换工具和合成测试。仅处理自行持有且获授权转换的本地文件，不含音频或匹配游戏加载器；帧数不符会拒绝输出为完成状态。
+- `android-shell/`：原创 ZIP 导入器、启动界面、可编辑的半透明触控层及返回退出确认，以及带 zlib 许可的 SDL 2.32.4 Java 接口。**游戏原生库不在仓库中。** 触控说明见 [Touch controls](android-shell/TOUCH-CONTROLS.md)。
 - `docs/port-status.md`：私有测试取得的结果、未验证项目和不能复现的具体缺口。
 - `docs/source-scope.md`：来源及发布范围。未选择整体项目开源许可证，不将公开可读等同于完整复用授权。
 

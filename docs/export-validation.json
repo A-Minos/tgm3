@@ -8,28 +8,79 @@
       4096,
       16384
     ],
-    "python_synthetic_tests": 17
+    "python_synthetic_tests": 17,
+    "touch_update_rerun": "passed on unchanged original diagnostic/test sources"
   },
   "probe_build": {
     "arm64-v8a": "passed",
     "x86_64": "passed",
     "elf_16_kib": "passed both",
     "zipalign_P16": "passed both",
-    "apksigner": "passed both"
+    "apksigner": "passed both",
+    "basis": "Prior baseline validation, not rebuilt for the touch update; probe sources are unchanged."
   },
   "frontend": {
     "java_compile": "passed",
     "lint": {
       "errors": 0,
-      "warnings": 53
+      "warnings": 72
     },
     "assemble_without_native_libraries": "fails explicitly as intended",
-    "importer_test": "passed privately with separately supplied actual ZIP and malformed fixtures; fixture archives not published"
+    "importer_test": "passed privately with separately supplied actual ZIP and malformed fixtures; fixture archives not published",
+    "touch_model_assertions": 56,
+    "touch_model_test_scope": "Pure Java layout/input only; no Android MotionEvent, Back callback or native runtime execution.",
+    "v2_integration_runtime": {
+      "environment": "Private integrated builds on API 30 x86_64 TCG/SwiftShader emulator; not reproduced as a game from this public tree.",
+      "earlier_candidate": {
+        "apk_sha256_prefix": "caff2871",
+        "observed": [
+          "Editor drag/size/opacity/handed presets/reset",
+          "Back opens confirmation; Cancel retains game process",
+          "Menu confirmation sends SDL_QUIT/window closed; game process ends, launcher survives"
+        ]
+      },
+      "final_immersive_candidate": {
+        "apk_sha256_prefix": "5345ade9",
+        "observed": [
+          "Upgrade retains hashes of 2004 existing test save files; 226 device resource hashes match",
+          "Saved P2 editor layout reopens",
+          "SDLSurface and overlay both 640x480, status bar height 0",
+          "Injected P2 left/right presses/releases reached Java and native input",
+          "ACTION_CANCEL and Home/focus loss released held direction; gameplay resume after Home not established"
+        ],
+        "multi_pointer": "Unresolved: attempted simultaneous direction+rotation observed only first pointer action; neither application nor helper fault established.",
+        "not_completed": [
+          "Final Back retest",
+          "Home/resume",
+          "P1 gameplay",
+          "Clean installation",
+          "16:9 viewport screenshot"
+        ]
+      },
+      "blocker": "Emulator system_server/Scudo and network-stack failures; system services still failed after one cold restart with game not running. This blocks tests but does not establish the cause of the multi-pointer result.",
+      "previous_passes_not_inherited_by_final_candidate": true,
+      "prepared_helpers_not_counted_as_executed_tests": true
+    }
   },
   "probe_lint": {
     "errors": 0,
     "warnings": 4
   },
-  "runtime_after_export": "Not rerun. Earlier original probe passed on x86_64 emulator; physical ARM64 and real 16 KiB kernels remain unverified.",
-  "ci": "Not configured or run."
+  "runtime_after_export": "Public frontend cannot run the game without omitted native libraries. Version-scoped private observations are recorded above; compile/model checks are not full runtime passes. Root probe runtime was not rerun for this update.",
+  "ci": "Not configured or run.",
+  "baseline_commit": "b8cc6e913f2e45d2e1063be27af60d211c118262",
+  "save_validation_limit": "Observed existing-test-save retention is not validation of all game modes, new records, accounts, or long-term save behavior.",
+  "physical_device_validation": "Not performed; phone touch feel/performance, ARM64 execution, Android 13+ predictive Back, audible audio and real 16 KiB kernels remain unverified.",
+  "bgm_conversion_tools": {
+    "synthetic_boundary_tests": 16,
+    "additional_synthetic_ffmpeg_checks": {
+      "ffmpeg_version": "7.1.5",
+      "completed_cases": 3,
+      "frame_mismatch_rejections": 2,
+      "source_hashes_unchanged": true
+    },
+    "scope": "Two-second mono/stereo and three-second stereo generated tones completed; one-second mono/stereo generated tones decoded 128 frames shorter and were rejected as incomplete. No game audio included.",
+    "historical_private_check": "17 actual BGM tracks had matching decoded frame counts; this does not establish arbitrary-audio or other-FFmpeg-version compatibility.",
+    "loader": "Compatible game/sidecar loader is not provided by this public repository."
+  }
 }
