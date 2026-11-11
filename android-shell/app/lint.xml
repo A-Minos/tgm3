@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lint>
+ <!-- SDL's optional capture, raw Bluetooth, and haptics are not used by this game.
+      Do not add microphone/Bluetooth/vibration permissions just to satisfy upstream code. -->
+ <issue id="MissingPermission">
+  <ignore path="src/main/java/org/libsdl/app/HIDDeviceBLESteamController.java" />
+  <ignore path="src/main/java/org/libsdl/app/HIDDeviceManager.java" />
+  <ignore path="src/main/java/org/libsdl/app/SDLAudioManager.java" />
+  <ignore path="src/main/java/org/libsdl/app/SDLControllerManager.java" />
+ </issue>
+</lint>

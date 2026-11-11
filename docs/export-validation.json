@@ -1,0 +1,35 @@
+{
+  "scope": "Public source export only; no full game build reproduced from this repository.",
+  "host_tests": {
+    "normal": "passed",
+    "asan_ubsan": "passed, leak detection disabled",
+    "random_operations_per_group": 3000,
+    "group_sizes": [
+      4096,
+      16384
+    ],
+    "python_synthetic_tests": 17
+  },
+  "probe_build": {
+    "arm64-v8a": "passed",
+    "x86_64": "passed",
+    "elf_16_kib": "passed both",
+    "zipalign_P16": "passed both",
+    "apksigner": "passed both"
+  },
+  "frontend": {
+    "java_compile": "passed",
+    "lint": {
+      "errors": 0,
+      "warnings": 53
+    },
+    "assemble_without_native_libraries": "fails explicitly as intended",
+    "importer_test": "passed privately with separately supplied actual ZIP and malformed fixtures; fixture archives not published"
+  },
+  "probe_lint": {
+    "errors": 0,
+    "warnings": 4
+  },
+  "runtime_after_export": "Not rerun. Earlier original probe passed on x86_64 emulator; physical ARM64 and real 16 KiB kernels remain unverified.",
+  "ci": "Not configured or run."
+}

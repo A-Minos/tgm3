@@ -1,0 +1,37 @@
+plugins { id 'com.android.application' }
+// Source-only export: never present an APK without its omitted native runtime
+// as a working game. Java compilation/lint remain independently available.
+tasks.register('verifyGameLibraries') {
+ doLast {
+  def missing = []
+  ['arm64-v8a', 'x86_64'].each { abi ->
+   ['libSDL2.so', 'libtgm3recomp.so'].each { lib ->
+    def path = file("src/main/jniLibs/${abi}/${lib}")
+    if (!path.isFile()) missing.add(path.name + ' (' + abi + ')')
+   }
+  }
+  if (!missing.isEmpty()) throw new GradleException(
+   'Source-only export: required native libraries are not provided: ' + missing.join(', ')
+   + '. See android-shell/README.md. Root Port Lab builds independently.')
+ }
+}
+tasks.configureEach {
+ if (name == 'assembleDebug' || name == 'assembleRelease') dependsOn 'verifyGameLibraries'
+}
+android {
+ namespace 'org.aminos.tgm3.privateport'
+ compileSdk 35
+ defaultConfig {
+  applicationId 'org.aminos.tgm3.privateport'
+  minSdk 26
+  targetSdk 35
+  versionCode 1
+  versionName '0.1-private-test'
+  ndk { abiFilters 'arm64-v8a', 'x86_64' }
+ }
+ compileOptions {
+  sourceCompatibility JavaVersion.VERSION_17
+  targetCompatibility JavaVersion.VERSION_17
+ }
+ packaging { jniLibs { useLegacyPackaging = false } }
+}

@@ -1,0 +1,36 @@
+plugins { id 'com.android.application' }
+
+// Keep ARM64 as the delivery target; x86_64 is an opt-in emulator smoke build.
+def probeAbi = providers.gradleProperty('probeAbi').getOrElse('arm64-v8a')
+if (!(probeAbi in ['arm64-v8a', 'x86_64'])) {
+    throw new GradleException('probeAbi must be arm64-v8a or x86_64')
+}
+
+android {
+    namespace 'org.example.portlab'
+    compileSdk 35
+    ndkVersion '28.0.13004108'
+
+    defaultConfig {
+        applicationId 'org.example.portlab'
+        minSdk 26
+        targetSdk 35
+        versionCode 1
+        versionName '0.1-probe'
+        ndk { abiFilters probeAbi }
+        externalNativeBuild {
+            cmake { arguments '-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON' }
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path file('src/main/cpp/CMakeLists.txt')
+            version '3.22.1'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    packaging { jniLibs { useLegacyPackaging = false } }
+}
