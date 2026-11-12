@@ -12,6 +12,9 @@ Final integrated-build multi-pointer input remains unresolved; several final
 runtime checks were blocked by emulator failures. See the validation section in
 the touch-control document before treating compile/model passes as runtime passes.
 
+See [Modern native front end](MODERN-UI.md) for the new settings/dialog design and
+its source-only validation boundary.
+
 ## Compile checks
 
 Use JDK 17, Gradle 8.11.1, AGP 8.9.2 and SDK 35:

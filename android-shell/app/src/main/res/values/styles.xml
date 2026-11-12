@@ -1,0 +1,14 @@
+<resources>
+    <style name="TgmTheme" parent="android:style/Theme.Material.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:colorAccent">#8BE0CF</item>
+        <item name="android:windowBackground">#10151D</item>
+        <item name="android:colorBackground">#10151D</item>
+        <item name="android:textColorPrimary">#F0F4FA</item>
+        <item name="android:textColorSecondary">#ACB8C8</item>
+        <item name="android:statusBarColor">#10151D</item>
+        <item name="android:navigationBarColor">#10151D</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowActionModeOverlay">true</item>
+    </style>
+</resources>

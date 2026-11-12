@@ -75,8 +75,7 @@ public final class GameActivity extends SDLActivity {
  private void requestExit() {
   if(quitting||isFinishing()||isDestroyed()||(exitDialog!=null&&exitDialog.isShowing())) return;
   releaseKeys();
-  exitDialog=new AlertDialog.Builder(this).setTitle("Exit to launcher?")
-    .setMessage("Exit the game through SDL. Existing save files are kept. You can edit touch controls in the launcher.")
+  exitDialog=ModernUi.dialog(this,"Return to launcher?","Your saved files are kept. The current game will end, and you can edit touch controls in the launcher.")
     .setNegativeButton("Keep playing",(d,w)->{})
     .setPositiveButton("Exit game",(d,w)->{
      quitting=true; if(overlay!=null) overlay.stopInput();
@@ -87,7 +86,7 @@ public final class GameActivity extends SDLActivity {
      nativeSendQuit();
     }).create();
   exitDialog.setOnDismissListener(d->{exitDialog=null; if(!quitting&&mSurface!=null) mSurface.requestFocus();});
-  exitDialog.show();
+  ModernUi.show(exitDialog);
  }
  private void releaseKeys() { if(overlay!=null) overlay.releaseAll(); }
  @Override protected void onPause() { releaseKeys(); super.onPause(); }

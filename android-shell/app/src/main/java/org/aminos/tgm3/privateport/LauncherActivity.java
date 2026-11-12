@@ -50,20 +50,51 @@ public final class LauncherActivity extends Activity {
  private Button choose, start;
  @Override public void onCreate(Bundle state) {
   super.onCreate(state);
-  LinearLayout layout = new LinearLayout(this);
-  layout.setOrientation(LinearLayout.VERTICAL);
-  int pad = (int)(24 * getResources().getDisplayMetrics().density);
-  layout.setPadding(pad, pad, pad, pad);
-  TextView title = new TextView(this);
-  title.setText("TGM3 · Private Android Test"); title.setTextSize(25);
-  layout.addView(title);
-  TextView help = new TextView(this);
-  help.setText("Import the game ZIP you supplied for this private test. Only its supported game.exe (557056 bytes, SHA-256 0d10e863…cb2) and data/ are accepted; other TGM3 builds may not work. Existing saves are kept. No game assets are bundled. Configurable translucent touch controls, keyboard, and controller input are available.");
-  layout.addView(help);
-  status = new TextView(this); layout.addView(status);
-  choose = new Button(this); choose.setText("Import game ZIP"); layout.addView(choose);
-  start = new Button(this); start.setText("Start game"); layout.addView(start);
-  Button touch = new Button(this); touch.setText("Touch layout settings"); layout.addView(touch);
+  android.widget.ScrollView scroll = new android.widget.ScrollView(this);
+  scroll.setFillViewport(true); scroll.setBackgroundColor(ModernUi.BACKGROUND);
+  LinearLayout layout = ModernUi.column(this,24);
+  layout.setGravity(android.view.Gravity.CENTER_HORIZONTAL);
+  LinearLayout body = new LinearLayout(this) {
+   @Override protected void onMeasure(int widthSpec,int heightSpec) {
+    int bounded=Math.min(View.MeasureSpec.getSize(widthSpec),ModernUi.dp(getContext(),600));
+    super.onMeasure(View.MeasureSpec.makeMeasureSpec(bounded,View.MeasureSpec.EXACTLY),heightSpec);
+   }
+  };
+  body.setOrientation(LinearLayout.VERTICAL);
+  layout.addView(body,new LinearLayout.LayoutParams(-1,-2));
+  body.addView(ModernUi.text(this,"A-MINOS  /  ANDROID LAB",12,ModernUi.ACCENT));
+  ModernUi.space(body,12);
+  body.addView(ModernUi.heading(this,"TGM3",36));
+  body.addView(ModernUi.text(this,"Private Android test",15,ModernUi.MUTED));
+  ModernUi.space(body,24);
+  LinearLayout game = ModernUi.card(this);
+  game.addView(ModernUi.heading(this,"Ready to play?",20));
+  ModernUi.space(game,8);
+  status = ModernUi.text(this,"",14,ModernUi.MUTED); game.addView(status);
+  start = ModernUi.button(this,"Start game",true,()->{}); ModernUi.fullButton(game,start);
+  body.addView(game,new LinearLayout.LayoutParams(-1,-2));
+  ModernUi.space(body,16);
+  LinearLayout controls = ModernUi.card(this);
+  controls.addView(ModernUi.heading(this,"Make it yours",20));
+  ModernUi.space(controls,8);
+  controls.addView(ModernUi.text(this,"Move, resize and fade the touch controls. Keyboard and controller input remain available.",14,ModernUi.MUTED));
+  Button touch = ModernUi.button(this,"Touch layout",false,()->{}); ModernUi.fullButton(controls,touch);
+  body.addView(controls,new LinearLayout.LayoutParams(-1,-2));
+  ModernUi.space(body,24);
+  body.addView(ModernUi.heading(this,"Game resources",16));
+  ModernUi.space(body,8);
+  body.addView(ModernUi.text(this,"Import your compatible game ZIP. Existing saves are kept; no game assets are bundled.",14,ModernUi.MUTED));
+  choose = ModernUi.button(this,"Import game ZIP",false,()->{}); ModernUi.fullButton(body,choose);
+  ModernUi.space(body,16);
+  body.addView(ModernUi.text(this,"Supported build: game.exe · 557056 bytes · SHA-256 0d10e863…cb2, plus data/. Other builds may not work.",12,ModernUi.MUTED));
+  scroll.addView(layout);
+  // Keep content clear of status/navigation bars under Android 15 edge-to-edge.
+  final int base=ModernUi.dp(this,24);
+  layout.setOnApplyWindowInsetsListener((v,insets)->{
+   v.setPadding(base+insets.getSystemWindowInsetLeft(),base+insets.getSystemWindowInsetTop(),
+     base+insets.getSystemWindowInsetRight(),base+insets.getSystemWindowInsetBottom());
+   return insets;
+  });
   touch.setOnClickListener(v -> startActivity(new Intent(this, TouchSettingsActivity.class)));
   choose.setOnClickListener(v -> {
    if (ImportJob.busy) return;
@@ -73,7 +104,7 @@ public final class LauncherActivity extends Activity {
    startActivityForResult(pick, PICK_ZIP);
   });
   start.setOnClickListener(v -> { if (!ImportJob.busy && GameImporter.ready(gameRoot())) startActivity(new Intent(this, GameActivity.class)); });
-  setContentView(layout); refresh();
+  setContentView(scroll); refresh();
  }
  private File gameRoot() { return new File(getFilesDir(), "game"); }
  private void refresh() {

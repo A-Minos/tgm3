@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
  <uses-feature android:glEsVersion="0x00020000" android:required="true" />
- <application android:label="TGM3 Private Test" android:theme="@android:style/Theme.Material.NoActionBar" android:allowBackup="false" android:extractNativeLibs="false" android:supportsRtl="true" android:enableOnBackInvokedCallback="false">
+ <application android:label="TGM3 Private Test" android:theme="@style/TgmTheme" android:allowBackup="false" android:extractNativeLibs="false" android:supportsRtl="true" android:enableOnBackInvokedCallback="false">
   <meta-data android:name="SDL_ENV.SDL_OPENGL_ES_DRIVER" android:value="1" />
   <meta-data android:name="SDL_ENV.SDL_JOYSTICK_HIDAPI" android:value="0" />
   <meta-data android:name="SDL_ENV.LIBGL_ES" android:value="2" />
