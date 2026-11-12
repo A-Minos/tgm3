@@ -10,5 +10,7 @@ if [[ -n "${JAVA_HOME:-}" ]]; then
     javac_bin="$JAVA_HOME/bin/javac"
 fi
 "$javac_bin" -Xlint:all -Werror -d build/touch-tests \
-    "$src/TouchLayout.java" "$src/TouchInputState.java" tests/TouchControlsTest.java
+    "$src/TouchLayout.java" "$src/TouchInputState.java" "$src/ViewportTransform.java" \
+    tests/TouchControlsTest.java tests/ViewportTransformTest.java
 "$java_bin" -cp build/touch-tests org.aminos.tgm3.privateport.TouchControlsTest
+"$java_bin" -cp build/touch-tests org.aminos.tgm3.privateport.ViewportTransformTest

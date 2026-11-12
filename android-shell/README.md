@@ -14,6 +14,8 @@ the touch-control document before treating compile/model passes as runtime passe
 
 See [Modern native front end](MODERN-UI.md) for the new settings/dialog design and
 its source-only validation boundary.
+See [Screen adjustment](SCREEN-ADJUSTMENT.md) for portrait cropping and the
+separate two-finger picture editor.
 
 ## Compile checks
 

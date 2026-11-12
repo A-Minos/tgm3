@@ -8,6 +8,6 @@
    <intent-filter><action android:name="android.intent.action.MAIN" /><category android:name="android.intent.category.LAUNCHER" /></intent-filter>
   </activity>
   <activity android:name=".TouchSettingsActivity" android:exported="false" android:screenOrientation="sensorLandscape" android:configChanges="orientation|screenSize|keyboardHidden" />
-  <activity android:name=".GameActivity" android:enableOnBackInvokedCallback="true" android:process=":game" android:exported="false" android:screenOrientation="sensorLandscape" android:configChanges="keyboard|keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|uiMode|navigation|density" />
+  <activity android:name=".GameActivity" android:enableOnBackInvokedCallback="true" android:process=":game" android:exported="false" android:screenOrientation="fullUser" android:configChanges="keyboard|keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|uiMode|navigation|density" />
  </application>
 </manifest>
