@@ -28,7 +28,9 @@ final class GameImporter {
        && Files.isDirectory(saveRoot, LinkOption.NOFOLLOW_LINKS);
   } catch (Exception e) { return false; }
  }
- static synchronized void importZip(InputStream source, File root) throws Exception {
+ interface StageVerifier { void verify(File stage) throws Exception; }
+ static synchronized void importZip(InputStream source, File root) throws Exception { importZip(source, root, null); }
+ static synchronized void importZip(InputStream source, File root, StageVerifier verifier) throws Exception {
   Files.createDirectories(root.toPath());
   File stage = new File(root, "import-stage"), archive = new File(root, "import.zip");
   File current = new File(root, "imported"), old = new File(root, "import-backup");
@@ -75,6 +77,7 @@ final class GameImporter {
    File exe = new File(stage, "game.exe");
    if (exe.length() != 557056 || !EXE_HASH.equals(sha256(exe))) throw new IOException("Unsupported game.exe version (SHA-256 mismatch).");
    if (dataFiles == 0) throw new IOException("The data/ folder has no nonempty files.");
+   if (verifier != null) verifier.verify(stage);
    File saves = new File(root, "TGM3"); Files.createDirectories(saves.toPath());
    Files.createSymbolicLink(new File(stage, "TGM3").toPath(), saves.toPath().toAbsolutePath());
    Files.write(new File(stage, ".verified").toPath(), EXE_HASH.getBytes(java.nio.charset.StandardCharsets.US_ASCII));
