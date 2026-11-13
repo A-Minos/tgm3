@@ -9,7 +9,8 @@
 - 仓库根目录：可独立构建的 **Port Lab** 诊断 APK。显示合成 GLES2 三角形，运行 JNI 内存测试，不含游戏，也不读取游戏文件。
 - `native/`、`include/`、`tests/`：原创 4 KiB 客体页/宿主页分组原型及合成测试。
 - `tools/`：只读 PE32 本地文件结构检查和 ELF 对齐检查。
-- [`tools/bgm_ogg/`](tools/bgm_ogg/README.md)：原创实验性 BGM OGG/元数据侧车转换工具和合成测试。仅处理自行持有且获授权转换的本地文件，不含音频或匹配游戏加载器；帧数不符会拒绝输出为完成状态。
+- [`tools/bgm_ogg/`](tools/bgm_ogg/README.md)：原创实验性 BGM OGG/元数据侧车转换工具和合成测试。仅处理自行持有且获授权转换的本地文件，不含音频；帧数不符会拒绝输出为完成状态。
+- [`native/ogg_wav/`](native/ogg_wav/README.md)：重新编写的原创 OGG/侧车加载模块、固定版本的 stb_vorbis 解码器、合成测试与 Android 双架构编译脚本。它返回带完整元数据的只读封印 WAV 文件描述符；**这不补齐缺失的完整游戏运行时或 APK 构建链。**
 - `android-shell/`：原创 ZIP 导入器、启动界面、可编辑的半透明触控层及返回退出确认，以及带 zlib 许可的 SDL 2.32.4 Java 接口。**游戏原生库不在仓库中。** 触控说明见 [Touch controls](android-shell/TOUCH-CONTROLS.md)。
 - `docs/port-status.md`：私有测试取得的结果、未验证项目和不能复现的具体缺口。
 - `docs/source-scope.md`：来源及发布范围。未选择整体项目开源许可证，不将公开可读等同于完整复用授权。

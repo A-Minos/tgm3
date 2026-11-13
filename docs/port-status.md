@@ -89,3 +89,22 @@ behavior work. Emulator layout checks do not establish comfortable controls or
 responsiveness on a physical phone. Android 13+ predictive Back, real ARM64
 execution, audible audio, real 16 KiB kernels and broader lifecycle/controller
 behavior remain unverified.
+
+## Rewritten OGG loader (November 13)
+
+The lost audio compatibility module has been rewritten as an independently
+buildable original component under `native/ogg_wav/`. Its decoder dependency,
+host tests and Android module build recipe are now included in this repository.
+See [its validation record](../native/ogg_wav/VALIDATION.md) for exact scope.
+
+Fifty synthetic tests passed normally and under ASan/UBSan, including bounded
+mutations, original-metadata reconstruction, strict frame counts and descriptor
+lifetime checks. LSan was unavailable under ptrace, so this is not a heap-leak
+pass. A private 17-track sample also preserved exact non-PCM bytes and frame
+counts. NDK r28/API 26 compiled both ARM64 and x86-64 modules, and checked ELF
+16 KiB alignment. These checks did not run Android or the game.
+
+This does **not** recover the missing complete native game build or convert the
+November 12 UI preview into an OGG-integrated APK. Original graphics/input/
+memory/entry-point adaptations remain outside the public source. No new game
+APK or original-signature upgrade is claimed by this source update.

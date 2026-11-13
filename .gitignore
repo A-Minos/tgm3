@@ -28,5 +28,11 @@ __pycache__/
 *.keystore
 *.pem
 *.key
+*.p12
+*.pfx
 *.log
 private_*/
+**/private-signing/
+**/.test-build/
+/native/ogg_wav/verify_loader
+/native/ogg_wav/test_fd_lifecycle

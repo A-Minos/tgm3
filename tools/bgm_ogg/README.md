@@ -7,9 +7,11 @@ authorized to copy and convert. No FFmpeg binary or codec implementation is
 included.
 
 The output requires a loader that understands the `.ogg.wavmeta` sidecar
-convention. That loader is **not supplied by this public repository**. This tool
-does not create an APK, recreate the private playable build, or make the output
-compatible with an ordinary WAV-only loader.
+convention. A rewritten standalone native module is now supplied in
+[`native/ogg_wav/`](../../native/ogg_wav/README.md). Its integration into the
+complete game runtime is separate. This tool does not create an APK, recreate
+the private playable build, or make the output compatible with an ordinary
+WAV-only loader.
 
 ## Requirements and use
 

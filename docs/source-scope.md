@@ -9,9 +9,14 @@ content whose redistribution rights have not been established.
   files and documentation: written for this project. No game instructions or
   binary fixtures are embedded. Test PE/ELF inputs are synthesized at runtime.
 - `tools/bgm_ogg/`: original Python preparation/validation tools and synthetic
-  tests. FFmpeg is invoked as a separately installed program; no FFmpeg, Vorbis,
-  game decoder/runtime implementation or actual audio is included. The sidecar
-  format requires a compatible loader that is not supplied by this repository.
+  tests. FFmpeg is invoked as a separately installed program; no FFmpeg binary
+  or actual audio is included.
+- `native/ogg_wav/`: the newly written standalone sidecar/WAV adapter, synthetic
+  tests and reproducible host/Android module build scripts. Its pinned
+  `stb_vorbis.c` is an exact upstream file with its full MIT/public-domain notice;
+  provenance and hashes are in `DEPENDENCIES.md`. This addition does not include
+  any TGM3 HLE implementation, generated game code, private kernel32 patch,
+  real-audio fixtures, prebuilt binaries or signing material.
 - `android-shell/app/src/main/java/org/aminos/tgm3/privateport/`: project-specific
   Java importer, launcher and touch UI. The supported executable hash and size
   are validation metadata, not executable content. Import requires an external
